@@ -1,6 +1,9 @@
+import Header from "../Header/Header";
+
 function MainPage(){
 
     return <>
+    <Header />
     Главная страница
     </>
 }
