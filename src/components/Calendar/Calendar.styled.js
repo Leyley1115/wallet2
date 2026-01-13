@@ -12,7 +12,7 @@ export const CalendarWrapper = styled.div`
   flex-direction: column;
   gap: 16px;
 
-  max-height: 600px;
+  max-height: 540px;
 `;
 
 export const Header = styled.div`
