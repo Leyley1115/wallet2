@@ -101,8 +101,8 @@ const ExpForm = () => {
                     type="radio"
                     name="category"
                     value={c.key}
-                    checked={form.category === c.key}
-                    onChange={handleChange}
+                    checked={form.category === c.title}
+                    onChange={() => setForm(prev => ({ ...prev, category: c.title }))}
                 />
                 <CategoryButton>
                     <img src={c.icon} alt="" />
