@@ -6,6 +6,7 @@ import MainPage from "./pages/MainPage";
 import { useState } from "react";
 import NotFoundPage from "./pages/NotFoundPage";
 import Layout from "./components/Layout/Layout";
+import AnalysisPage from "./pages/AnalysisPage";
 
 export function AppRoutes(){
     const [isAuth, setIsAuth] = useState(false);
@@ -14,9 +15,8 @@ export function AppRoutes(){
         <Routes>
             <Route element ={<Layout isAuth = {isAuth} setIsAuth = {setIsAuth}/>}>
             <Route element={<PrivatRoutPage isAuth={isAuth}/>}>
-				<Route path="/" element={<MainPage /> }>
-			</Route>
-            
+				<Route path="/" element={<MainPage /> } />
+                <Route path="/analysis" element={<AnalysisPage />} />   
 			</Route>
             <Route path="/login" element={<SignInPage setIsAuth = {setIsAuth}/>} />
 			<Route path="/signup" element={<SignUpPage setIsAuth = {setIsAuth}/>} />
