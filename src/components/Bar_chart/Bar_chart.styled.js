@@ -14,7 +14,10 @@ export const ChartWrapper = styled.div`
 `;
 
 export const Header = styled.div`
-     margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
 `;
 
 export const Title = styled.div`
@@ -55,7 +58,9 @@ export const Bar = styled.div`
 
 export const Amount = styled.div`
     font-size: 12px;
-    color: #666;
+    font-weight: 600;
+    font-size: 16px;
+    color: #000000;
     text-align: center;
     margin-bottom: 4px;
 `;

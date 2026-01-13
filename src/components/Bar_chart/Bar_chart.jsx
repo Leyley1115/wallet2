@@ -21,14 +21,14 @@ export default function BarChart() {
 
       <BarsWrapper>
         <BarBlock>
-            <Amount>21 990 ₽</Amount>
+            <Amount>3 590 ₽</Amount>
             <Bar $height={100} $color="#D9B6FF" />
           
             <Label>Еда</Label>
         </BarBlock>
 
         <BarBlock>
-            <Amount>11 046 ₽</Amount>
+            <Amount>1 835 ₽</Amount>
             <Bar $height={40} $color="#FFB53D" />
             <Label>Транспорт</Label>
         </BarBlock>
@@ -41,20 +41,20 @@ export default function BarChart() {
         </BarBlock>
 
         <BarBlock> 
-            <Amount>13 050 ₽</Amount>
+            <Amount>1 250 ₽</Amount>
             <Bar $height={35} $color="#B0AEFF" />
           
           <Label>Развлечения</Label>
         </BarBlock>
 
         <BarBlock>
-            <Amount>0 ₽</Amount>
+            <Amount>600 ₽</Amount>
             <Bar $height={25} $color="#BCEC30" />
             <Label>Образование</Label>
         </BarBlock>
 
         <BarBlock> 
-            <Amount>19 106 ₽</Amount>
+            <Amount>2 306 ₽</Amount>
             <Bar $height={60} $color="#FFB9B8" />
             <Label>Другое</Label>
         </BarBlock>
