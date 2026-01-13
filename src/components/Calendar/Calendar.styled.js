@@ -7,6 +7,20 @@ export const CalendarWrapper = styled.div`
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.06);
   width: 360px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  max-height: 600px;
+`;
+
+export const Header = styled.div`
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  z-index: 10;
+  padding-bottom: 8px;
 `;
 
 export const Title = styled.h2`
@@ -24,17 +38,18 @@ export const WeekRow = styled.div`
   color: #8f8f8f;
   padding-bottom: 8px;
   border-bottom: 1px solid #e0e0e0;
-  margin-bottom: 8px;
 
   span {
     text-transform: uppercase;
   }
 `;
 
-export const MonthsWrapper = styled.div`
+export const MonthsScroll = styled.div`
+  overflow-y: auto;
+  padding-right: 6px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 24px;
 `;
 
 export const MonthBlock = styled.div``;
@@ -63,7 +78,7 @@ export const DayCell = styled.div`
 
   color: ${({ $start, $end, $middle, $empty }) => {
     if ($empty) return "transparent";
-    if ($start || $end) return "#000000";
+    if ($start || $end) return "#7334EA";
     if ($middle) return "#7334EA";
     return "#4f4f4f";
   }};
@@ -80,57 +95,5 @@ export const DayCell = styled.div`
   &:hover {
     background-color: ${({ $empty, $start, $end, $middle }) =>
       $empty || $start || $end || $middle ? "" : "#dcdcdc"};
-  }
-`;
-;
-
-export const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  background-color: #F4F5F6;
-`;
-
-export const Container = styled.div`
-  display: block;
-  width: 100vw;
-  min-height: 100vh;
-  margin: 0 auto;
-`;
-
-export const Modal = styled.div`
-  width: 100%;
-  height: 100%;
-  min-width: 320px;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  @media screen and (max-width: 375px) {
-    background-color: #FFFFFF;
-  }
-`;
-
-export const ModalBlock = styled.div`
-  display: block;
-  margin: 0 auto;
-  background-color: #FFFFFF;
-  max-width: 379px;
-  width: 100%;
-  padding: 32px 34px;
-  border-radius: 30px;
-  border: 0.7px solid #D4DBE5;
-  box-shadow: 0px 4px 67px -12px rgba(0,0,0,0.13);
-
-  @media screen and (max-width: 375px) {
-    max-width: 334px;
-    width: 100%;
-    padding: 0 16px;
-    border-radius: 0;
-    border: none;
-    box-shadow: none;
   }
 `;

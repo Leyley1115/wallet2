@@ -1,6 +1,5 @@
 import { Container, MainBlock, MainM, MainContent } from "./MainComponent.styled";
-import GridTable from "../GridTable/GridTable";
-import ExpForm from "../ExpForm/ExpForm";
+import { Outlet } from "react-router-dom";
 
 function MainComponent(){
     return (
@@ -8,8 +7,7 @@ function MainComponent(){
 			<Container>
 				<MainBlock>
 					<MainContent>
-                        <GridTable />
-						<ExpForm />
+                        <Outlet />
 					</MainContent>
 				</MainBlock>
 			</Container>

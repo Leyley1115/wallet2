@@ -2,7 +2,7 @@ import { ExpContext } from "./expContext"
 import { useState} from "react"
 
 const ExpProvider = ({ children }) => {
-  const [error, setError] = useState('');
+  // const [error, setError] = useState('');
   const [rows, setRows] = useState([]);
 
   const removeRow = (index) => {

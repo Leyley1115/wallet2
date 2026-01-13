@@ -44,4 +44,4 @@ export function GridTable() {
   )
 }
 
-export default GridTable
+export default GridTable;
