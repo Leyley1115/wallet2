@@ -12,7 +12,6 @@ import {
     ModalLink,
     ModalFormLogin,
  } from "./AuthForm.styled";
- import Header from "../Header/Header";
 
 export function AuthForm({ isSignUp, setIsAuth }){
     const navigate = useNavigate();
@@ -24,7 +23,6 @@ export function AuthForm({ isSignUp, setIsAuth }){
     return (
     <>
       <GlobalStyle />
-      <Header />
       <Wrapper>
         <ContainerSignin>
           <Modal>

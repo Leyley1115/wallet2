@@ -43,7 +43,7 @@ export const Wrapper = styled.div`
   height: 100%;
   overflow-x: hidden;
   overflow-y: scroll;
-  background-color: #EAEEF6;
+  background-color: #F4F5F6;
 `;
 
 export const ContainerSignin = styled.div`
