@@ -9,7 +9,7 @@ import Layout from "./components/Layout/Layout";
 import AnalysisPage from "./pages/AnalysisPage";
 import ExpForm from "./components/ExpForm/ExpForm";
 import GridTable from "./components/GridTable/GridTable";
-import BarChart from "./components/Bar_chart/Bar_chart";
+import BarChart from "./components/BarChart/BarChart";
 
 export function AppRoutes(){
     const [isAuth, setIsAuth] = useState(false);

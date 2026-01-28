@@ -1,4 +1,3 @@
-import React from "react";
 import {
   ChartWrapper,
   Header,
@@ -9,7 +8,7 @@ import {
   Bar,
   Amount,
   Label,
-} from "./Bar_chart.styled";
+} from "./BarChart.styled";
 
 export default function BarChart() {
   return (
