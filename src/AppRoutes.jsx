@@ -12,7 +12,9 @@ import GridTable from "./components/GridTable/GridTable";
 import BarChart from "./components/BarChart/BarChart";
 
 export function AppRoutes(){
-    const [isAuth, setIsAuth] = useState(false);
+    const [isAuth, setIsAuth] = useState(() => { 
+        return Boolean(localStorage.getItem("token")); 
+    });
 
     return (
         <Routes>

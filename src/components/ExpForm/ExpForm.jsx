@@ -11,7 +11,7 @@ import {
 import { ExpContext } from '../../context/expContext'
 import { useContext } from 'react'
 import { useState, useEffect } from 'react'
-import { data } from '../../data'
+import { addTransaction, getTransactions } from '../../api/transactions'
 
 const ExpForm = () => {
   const { addRow, setRows } = useContext(ExpContext);
@@ -63,8 +63,10 @@ const ExpForm = () => {
     }))
   }
 
-  const handleSubmit = () => {
-    addRow(form)
+  const handleSubmit = async () => {
+    await addTransaction(form);
+    const list = await getTransactions();
+    setRows(list);
     setForm({
       description: '',
       category: '',
@@ -73,9 +75,11 @@ const ExpForm = () => {
     })
   }
 
-  useEffect(() =>{
-    setRows(data);
-  }, [])
+  useEffect(() => { (async () => { 
+    const list = await getTransactions();
+    setRows(list); 
+  })
+  (); }, []);
 
   return (
     <TableBlok>

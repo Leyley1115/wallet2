@@ -1,25 +1,17 @@
 export async function addTransaction(tx) {
-  const userId = localStorage.getItem("userId");
-  if (!userId) throw new Error("Unauthorized");
-
+  const token = localStorage.getItem("token");
   const all = JSON.parse(localStorage.getItem("transactions") || "{}");
-
-  const list = all[userId] || [];
-
+  const list = all[token] || [];
   list.push({ ...tx, id: Date.now() });
-
-  all[userId] = list;
-
+  all[token] = list;
   localStorage.setItem("transactions", JSON.stringify(all));
 
   return { message: "ok" };
 }
 
 export async function getTransactions() {
-  const userId = localStorage.getItem("userId");
-  if (!userId) throw new Error("Unauthorized");
-
+  const token = localStorage.getItem("token");
   const all = JSON.parse(localStorage.getItem("transactions") || "{}");
-
-  return all[userId] || [];
+  
+  return all[token] || [];
 }
