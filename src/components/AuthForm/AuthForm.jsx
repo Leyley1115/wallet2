@@ -64,7 +64,7 @@ export function AuthForm({ isSignUp, setIsAuth }){
                     }
 
                     try {
-                      await login({ name, password });
+                      await login({ login: name, password });
                       handleSubmit();
                       } catch (err) {
                       setError(err.message);
@@ -131,7 +131,7 @@ export function AuthForm({ isSignUp, setIsAuth }){
                       }
 
                       try {
-                        await register({ name, email, password });
+                        await register({ login: email, password, name });
                         handleSubmit();
                       } catch (err) {
                         setError(err.message);

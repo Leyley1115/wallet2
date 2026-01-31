@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ButtonHeaderNew, HeaderBlock, HeaderLogo, Hover2, SHeader, Container, ButtonContainer, ActiveButton } from './Header.styled.js';
-import { logout } from '../../api/auth.js';
+
 
 function Header({isAuth, setIsAuth}){
 	const navigate = useNavigate();
@@ -44,7 +44,7 @@ function Header({isAuth, setIsAuth}){
 							</ButtonContainer>
 						}
 						{isAuth &&
-							<Hover2 to='/login' onClick = {() => logout()}>Выход</Hover2>
+							<Hover2 to='/login'>Выход</Hover2>
 						}
 				</HeaderBlock>
 			</Container>			

@@ -1,40 +1,39 @@
-export async function register({ name, email, password }) {
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
+import axios from "axios";
 
-    const exists = users.find(u => u.name === name);
-    if (exists) {
-        throw new Error("Пользователь уже существует");
-    }
+export async function login({ login, password }) {
+  try {
+    const response = await axios.post(
+      "https://wedev-api.sky.pro/api/user/login",
+      { login, password },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-    const newUser = { 
-        token: Date.now(),
-        name,
-        email,
-        password,
-        
-    };
-    users.push(newUser);
-    localStorage.setItem("users", JSON.stringify(users));
-
-    return { message: "ok" };
+    return response.data;
+  } catch (error) {
+    const message = error.response?.data?.message || "Ошибка авторизации";
+    throw new Error(message);
+  }
 }
 
-export async function login({ name, password }) {
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
+export async function register({ login, password, name }) {
+  try {
+    const response = await axios.post(
+      "https://wedev-api.sky.pro/api/user",
+      { login, password, name },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-    const user = users.find(u => u.name === name && u.password === password);
-    if (!user) {
-        throw new Error("Неверный логин или пароль");
-    }
-
-    localStorage.setItem("token", user.token);
-
-    return { token: user.token };
+    return response.data;
+  } catch (error) {
+    const message = error.response?.data?.message || "Ошибка регистрации";
+    throw new Error(message);
+  }
 }
-
-export function logout() {
-  localStorage.removeItem("token");
-  setIsAuth(false);
-  navigate("/login");
-}
-
