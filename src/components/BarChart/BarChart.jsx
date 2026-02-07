@@ -8,56 +8,127 @@ import {
   Bar,
   Amount,
   Label,
-} from "./BarChart.styled";
+} from './BarChart.styled'
 
-export default function BarChart() {
+export default function BarChart({ period }) {
+  if (!period) {
+    return (
+      <ChartWrapper>
+        <Header>
+          <Total>0 ₽</Total>
+          <Title>Выберите период</Title>
+        </Header>
+
+        <BarsWrapper>
+          <BarBlock>
+            <Amount>0 ₽</Amount>
+            <Bar $height={5} $color="#D9B6FF" />
+            <Label>Еда</Label>
+          </BarBlock>
+
+          <BarBlock>
+            <Amount>0 ₽</Amount>
+            <Bar $height={5} $color="#FFB53D" />
+            <Label>Транспорт</Label>
+          </BarBlock>
+
+          <BarBlock>
+            <Amount>0 ₽</Amount>
+            <Bar $height={5} $color="#6EE4FE" />
+            <Label>Жилье</Label>
+          </BarBlock>
+
+          <BarBlock>
+            <Amount>0 ₽</Amount>
+            <Bar $height={5} $color="#B0AEFF" />
+            <Label>Развлечения</Label>
+          </BarBlock>
+
+          <BarBlock>
+            <Amount>0 ₽</Amount>
+            <Bar $height={5} $color="#BCEC30" />
+            <Label>Образование</Label>
+          </BarBlock>
+
+          <BarBlock>
+            <Amount>0 ₽</Amount>
+            <Bar $height={5} $color="#FFB9B8" />
+            <Label>Другое</Label>
+          </BarBlock>
+        </BarsWrapper>
+      </ChartWrapper>
+    )
+  }
+
+  const { transactions } = period
+
+  const categoryMap = {
+    food: 'Еда',
+    transport: 'Транспорт',
+    home: 'Жилье',
+    fun: 'Развлечения',
+    education: 'Образование',
+    other: 'Другое',
+  }
+
+  const grouped = transactions.reduce((acc, t) => {
+    const name = categoryMap[t.category] || t.category
+    acc[name] = (acc[name] || 0) + t.sum
+    return acc
+  }, {})
+
+  const order = [
+    'Еда',
+    'Транспорт',
+    'Жилье',
+    'Развлечения',
+    'Образование',
+    'Другое',
+  ]
+
+  const items = order.map((cat) => ({
+    category: cat,
+    sum: grouped[cat] || 0,
+  }))
+
+  const max = Math.max(...items.map((i) => i.sum), 1)
+  const total = items.reduce((acc, i) => acc + i.sum, 0)
+
+  const minHeight = 5
+
   return (
     <ChartWrapper>
       <Header>
-        <Total>9 581 ₽</Total>
-        <Title>Расходы за 10 июля 2024</Title>
+        <Total>{total.toLocaleString('ru-RU')} ₽</Total>
+        <Title>Расходы за выбранный период</Title>
       </Header>
 
       <BarsWrapper>
-        <BarBlock>
-            <Amount>3 590 ₽</Amount>
-            <Bar $height={100} $color="#D9B6FF" />
-          
-            <Label>Еда</Label>
-        </BarBlock>
+        {items.map((item) => (
+          <BarBlock key={item.category}>
+            <Amount>{item.sum.toLocaleString('ru-RU')} ₽</Amount>
 
-        <BarBlock>
-            <Amount>1 835 ₽</Amount>
-            <Bar $height={40} $color="#FFB53D" />
-            <Label>Транспорт</Label>
-        </BarBlock>
+            <Bar
+              $height={item.sum === 0 ? minHeight : (item.sum / max) * 100}
+              $color={
+                item.category === 'Еда'
+                  ? '#D9B6FF'
+                  : item.category === 'Транспорт'
+                    ? '#FFB53D'
+                    : item.category === 'Жилье'
+                      ? '#6EE4FE'
+                      : item.category === 'Развлечения'
+                        ? '#B0AEFF'
+                        : item.category === 'Образование'
+                          ? '#BCEC30'
+                          : '#FFB9B8'
+              }
+            />
 
-        <BarBlock>
-            <Amount>0 ₽</Amount>
-            <Bar $height={2} $color="#6EE4FE" />
-          
-          <Label>Жилье</Label>
-        </BarBlock>
-
-        <BarBlock> 
-            <Amount>1 250 ₽</Amount>
-            <Bar $height={35} $color="#B0AEFF" />
-          
-          <Label>Развлечения</Label>
-        </BarBlock>
-
-        <BarBlock>
-            <Amount>600 ₽</Amount>
-            <Bar $height={25} $color="#BCEC30" />
-            <Label>Образование</Label>
-        </BarBlock>
-
-        <BarBlock> 
-            <Amount>2 306 ₽</Amount>
-            <Bar $height={60} $color="#FFB9B8" />
-            <Label>Другое</Label>
-        </BarBlock>
+            <Label>{item.category}</Label>
+          </BarBlock>
+        ))}
       </BarsWrapper>
     </ChartWrapper>
-  );
+  )
 }

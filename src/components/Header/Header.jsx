@@ -44,7 +44,7 @@ function Header({isAuth, setIsAuth}){
 							</ButtonContainer>
 						}
 						{isAuth &&
-							<Hover2 to='/login'>Выход</Hover2>
+							<Hover2 to='/login' onClick={()=>{localStorage.clear('token')}}>Выход</Hover2>
 						}
 				</HeaderBlock>
 			</Container>			

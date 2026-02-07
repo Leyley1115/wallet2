@@ -32,9 +32,8 @@ export async function addTransaction({ token, form }) {
         },
       }
     )
-    return console.log(trs.data)
+    return trs.data
   } catch (error) {
-    console.log('SERVER ERROR:', error.response?.data)
     throw new Error(error.message)
   }
 }
@@ -54,11 +53,9 @@ export async function getPeriodTransaction({ start, end, token }) {
         },
       }
     );
-
-    console.log(pTrs.data);
     return pTrs.data;
   } catch (error) {
-    console.log('SERVER ERROR:', error.response?.data);
+
     throw new Error(error.message);
   }
 }

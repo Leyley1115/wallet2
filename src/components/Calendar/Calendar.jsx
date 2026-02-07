@@ -85,7 +85,7 @@ export default function Calendar({ token, onLoad }) {
         token,
       });
 
-      onLoad(data);
+      onLoad({ start, end, transactions: data });
     }
 
     load();
