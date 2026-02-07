@@ -24,7 +24,7 @@ export function GridTable() {
               <GridTableStyle key={index}>
                 <p>{row.description}</p>
                 <p>{row.category}</p>
-                <p>{row.date}</p>
+                <p>{new Date(row.date).toLocaleDateString("ru-RU")}</p>
                 <p>{row.sum}</p>
                 <img
                   key={index}

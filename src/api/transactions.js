@@ -15,15 +15,22 @@ export async function getTransactions({ token }) {
    }
 }
 
-export async function addTransactions({token, data}){
+export async function addTransaction({token, form}){
   try{
-    const trs = await axios.post(API_URL, data, {
+    const trs = await axios.post(API_URL, {
+       description: form.description, 
+       sum: Number(form.sum), 
+       category: form.category, 
+       date: form.date, 
+      }, {
       headers: {
-        Authorization: 'Bearer' + token,
+        "Content-Type": "",
+        Authorization: 'Bearer ' + token,
       },
     })
-    return trs.data
+    return console.log(trs.data)
   } catch(error){
-    throw new Errpr(error.massage)
+    console.log('SERVER ERROR:', error.response?.data); 
+    throw new Error(error.message);
   }
 }

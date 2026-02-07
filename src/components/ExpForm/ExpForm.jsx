@@ -11,7 +11,8 @@ import {
 import { ExpContext } from '../../context/expContext'
 import { useContext } from 'react'
 import { useState, useEffect } from 'react'
-import { getTransactions } from '../../api/transactions'
+import { getTransactions, addTransaction } from '../../api/transactions'
+import { data } from 'react-router-dom'
 
 const ExpForm = () => {
   const token = localStorage.getItem('token')
@@ -28,12 +29,12 @@ const ExpForm = () => {
       icon: '/car.svg',
     },
     {
-      key: 'home',
+      key: 'housing',
       title: 'Жильё',
       icon: '/house.svg',
     },
     {
-      key: 'fun',
+      key: 'joy',
       title: 'Развлечения',
       icon: '/gameboy.svg',
     },
@@ -43,7 +44,7 @@ const ExpForm = () => {
       icon: '/teacher.svg',
     },
     {
-      key: 'another',
+      key: 'others',
       title: 'Другое',
       icon: '/message-text.svg',
     },
@@ -51,9 +52,9 @@ const ExpForm = () => {
 
   const [form, setForm] = useState({
     description: '',
+    sum: '',
     category: '',
     date: '',
-    sum: '',
   })
 
   const handleChange = (e) => {
@@ -64,21 +65,28 @@ const ExpForm = () => {
     }))
   }
 
-  const handleSubmit = async () => {
-    await addTransaction(form)
-    useEffect(() => {
-      ;(async () => {
-        const list = await getTransactions({ token })
-        setRows(list)
-      })()
-    }, [])
-    setForm({
-      description: '',
-      category: '',
-      date: '',
-      sum: '',
-    })
-  }
+const handleSubmit = async () => {
+  const d = new Date(form.date); 
+  const formattedDate = `${d.getMonth() + 1}-${d.getDate()}-${d.getFullYear()}`;
+
+  await addTransaction({
+    token, 
+    form: {
+      ...form,
+      date: formattedDate
+    }
+  })
+
+  const list = await getTransactions({ token })
+  setRows(list)
+
+  setForm({
+    description: '',
+    sum: '',
+    category: '',
+    date: '',
+  })
+}
 
   useEffect(() => {
     ;(async () => {
@@ -111,9 +119,9 @@ const ExpForm = () => {
                   type="radio"
                   name="category"
                   value={c.key}
-                  checked={form.category === c.title}
+                  checked={form.category === c.key}
                   onChange={() =>
-                    setForm((prev) => ({ ...prev, category: c.title }))
+                    setForm((prev) => ({ ...prev, category: c.key }))
                   }
                 />
                 <CategoryButton>
