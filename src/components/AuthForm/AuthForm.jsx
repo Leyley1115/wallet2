@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { register, login } from "../../api/auth";
+import { signUp, signIn } from "../../api/auth";
 import { 
     GlobalStyle,
     Wrapper,
@@ -64,7 +64,8 @@ export function AuthForm({ isSignUp, setIsAuth }){
                     }
 
                     try {
-                      await login({ login: name, password });
+                      const data = await signIn({ login: name, password });
+                      localStorage.setItem("token", data.token);
                       handleSubmit();
                       } catch (err) {
                       setError(err.message);
@@ -131,7 +132,8 @@ export function AuthForm({ isSignUp, setIsAuth }){
                       }
 
                       try {
-                        await register({ login: email, password, name });
+                        await signUp({ name, login: email, password });
+                        localStorage.setItem("token", data.token);
                         handleSubmit();
                       } catch (err) {
                         setError(err.message);

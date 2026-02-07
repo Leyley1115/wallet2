@@ -11,10 +11,11 @@ import {
 import { ExpContext } from '../../context/expContext'
 import { useContext } from 'react'
 import { useState, useEffect } from 'react'
-import { addTransaction, getTransactions } from '../../api/transactions'
+import { getTransactions } from '../../api/transactions'
 
 const ExpForm = () => {
-  const { addRow, setRows } = useContext(ExpContext);
+  const token = localStorage.getItem('token')
+  const { addRow, setRows } = useContext(ExpContext)
   const categoryList = [
     {
       key: 'food',
@@ -52,7 +53,7 @@ const ExpForm = () => {
     description: '',
     category: '',
     date: '',
-    summ: '',
+    sum: '',
   })
 
   const handleChange = (e) => {
@@ -64,22 +65,27 @@ const ExpForm = () => {
   }
 
   const handleSubmit = async () => {
-    await addTransaction(form);
-    const list = await getTransactions();
-    setRows(list);
+    await addTransaction(form)
+    useEffect(() => {
+      ;(async () => {
+        const list = await getTransactions({ token })
+        setRows(list)
+      })()
+    }, [])
     setForm({
       description: '',
       category: '',
       date: '',
-      summ: '',
+      sum: '',
     })
   }
 
-  useEffect(() => { (async () => { 
-    const list = await getTransactions();
-    setRows(list); 
-  })
-  (); }, []);
+  useEffect(() => {
+    ;(async () => {
+      const list = await getTransactions({ token })
+      setRows(list)
+    })()
+  }, [])
 
   return (
     <TableBlok>
@@ -98,23 +104,25 @@ const ExpForm = () => {
       <ThemeBlock>
         <h3>Категория</h3>
         <CategoryBox>
-         <CategoryBox>
+          <CategoryBox>
             {categoryList.map((c) => (
-                <CategoryLabel key={c.key}>
+              <CategoryLabel key={c.key}>
                 <HiddenRadio
-                    type="radio"
-                    name="category"
-                    value={c.key}
-                    checked={form.category === c.title}
-                    onChange={() => setForm(prev => ({ ...prev, category: c.title }))}
+                  type="radio"
+                  name="category"
+                  value={c.key}
+                  checked={form.category === c.title}
+                  onChange={() =>
+                    setForm((prev) => ({ ...prev, category: c.title }))
+                  }
                 />
                 <CategoryButton>
-                    <img src={c.icon} alt="" />
-                    {c.title}
+                  <img src={c.icon} alt="" />
+                  {c.title}
                 </CategoryButton>
-                </CategoryLabel>
+              </CategoryLabel>
             ))}
-            </CategoryBox>
+          </CategoryBox>
         </CategoryBox>
       </ThemeBlock>
 
@@ -133,9 +141,9 @@ const ExpForm = () => {
         <h3>Сумма</h3>
         <Input
           type="text"
-          name="summ"
+          name="sum"
           min="0"
-          value={form.summ}
+          value={form.sum}
           placeholder="Введите сумму"
           onChange={handleChange}
         />

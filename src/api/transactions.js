@@ -1,17 +1,29 @@
-export async function addTransaction(tx) {
-  const token = localStorage.getItem("token");
-  const all = JSON.parse(localStorage.getItem("transactions") || "{}");
-  const list = all[token] || [];
-  list.push({ ...tx, id: Date.now() });
-  all[token] = list;
-  localStorage.setItem("transactions", JSON.stringify(all));
+import axios from 'axios';
 
-  return { message: "ok" };
+const API_URL = 'https://wedev-api.sky.pro/api/transactions';
+
+export async function getTransactions({ token }) {
+   try {
+      const data = await axios.get(API_URL, {
+         headers: {
+            Authorization: 'Bearer ' + token,
+         },
+      })
+      return data.data
+   } catch (error) {
+      throw new Error(error.message)
+   }
 }
 
-export async function getTransactions() {
-  const token = localStorage.getItem("token");
-  const all = JSON.parse(localStorage.getItem("transactions") || "{}");
-  
-  return all[token] || [];
+export async function addTransactions({token, data}){
+  try{
+    const trs = await axios.post(API_URL, data, {
+      headers: {
+        Authorization: 'Bearer' + token,
+      },
+    })
+    return trs.data
+  } catch(error){
+    throw new Errpr(error.massage)
+  }
 }

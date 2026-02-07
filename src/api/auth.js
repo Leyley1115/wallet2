@@ -1,39 +1,34 @@
 import axios from "axios";
 
-export async function login({ login, password }) {
-  try {
-    const response = await axios.post(
-      "https://wedev-api.sky.pro/api/user/login",
-      { login, password },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+const API_URL = "https://wedev-api.sky.pro/api/user";
 
-    return response.data;
-  } catch (error) {
-    const message = error.response?.data?.message || "Ошибка авторизации";
-    throw new Error(message);
-  }
+export async function signIn(userData) {
+   try {
+      const data = await axios.post(API_URL + "/login", userData, {
+         headers: {
+            "Content-Type": "",
+         },
+      });
+      return data.data.user;
+   } catch (error) {
+      throw new Error(error.response.data.error);
+   }
 }
 
-export async function register({ login, password, name }) {
-  try {
-    const response = await axios.post(
-      "https://wedev-api.sky.pro/api/user",
-      { login, password, name },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
+export async function signUp({ name, login, password }) {
+   try {
+      const data = await axios.post(
+         API_URL,
+         { login, name, password },
+         {
+         headers: {
+            "Content-Type": "",
+         },
       }
-    );
-
-    return response.data;
-  } catch (error) {
-    const message = error.response?.data?.message || "Ошибка регистрации";
-    throw new Error(message);
+   );
+   return data.data.user;
+   } catch (error) {
+      console.log(error);
+      throw new Error(error.response.data.error);
   }
 }
