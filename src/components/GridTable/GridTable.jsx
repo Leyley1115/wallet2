@@ -3,7 +3,15 @@ import { GridTableStyle, TableBlok, TableBox } from './GridTable.styled'
 import { ExpContext } from '../../context/expContext'
 
 export function GridTable() {
-  const { removeRow, rows } = useContext(ExpContext)
+  const { removeRow, rows } = useContext(ExpContext);
+  const categoryMap = {
+  food: "Еда",
+  transport: "Транспорт",
+  housing: "Жильё",
+  joy: "Развлечения",
+  education: "Образование",
+  others: "Другое",
+};
 
   return (
     <>
@@ -23,7 +31,7 @@ export function GridTable() {
             rows.map((row, index) => (
               <GridTableStyle key={index}>
                 <p>{row.description}</p>
-                <p>{row.category}</p>
+                <p>{categoryMap[row.category]}</p>
                 <p>{new Date(row.date).toLocaleDateString("ru-RU")}</p>
                 <p>{row.sum}</p>
                 <img

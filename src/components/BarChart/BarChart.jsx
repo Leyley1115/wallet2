@@ -94,8 +94,6 @@ export default function BarChart({ period }) {
   const max = Math.max(...items.map((i) => i.sum), 1)
   const total = items.reduce((acc, i) => acc + i.sum, 0)
 
-  const minHeight = 5
-
   return (
     <ChartWrapper>
       <Header>
@@ -109,7 +107,7 @@ export default function BarChart({ period }) {
             <Amount>{item.sum.toLocaleString('ru-RU')} ₽</Amount>
 
             <Bar
-              $height={item.sum === 0 ? minHeight : (item.sum / max) * 100}
+              $height={(item.sum / max) * 100}
               $color={
                 item.category === 'Еда'
                   ? '#D9B6FF'
