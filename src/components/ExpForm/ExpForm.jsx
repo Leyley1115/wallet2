@@ -12,7 +12,6 @@ import { ExpContext } from '../../context/expContext'
 import { useContext } from 'react'
 import { useState, useEffect } from 'react'
 import { getTransactions, addTransaction } from '../../api/transactions'
-import { data } from 'react-router-dom'
 
 const ExpForm = () => {
   const token = localStorage.getItem('token')

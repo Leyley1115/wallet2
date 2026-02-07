@@ -1,9 +1,17 @@
 import Calendar from "../components/Calendar/Calendar";
 
 const AnalysisPage = () => {
-    return<>
-    <Calendar />
+  const token = localStorage.getItem('token');
+
+  function handleLoad(data) {
+    console.log("PERIOD TRANSACTIONS:", data);
+  }
+
+  return (
+    <>
+      <Calendar token={token} onLoad={handleLoad} />
     </>
-}
+  );
+};
 
 export default AnalysisPage;
