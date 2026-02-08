@@ -59,3 +59,20 @@ export async function getPeriodTransaction({ start, end, token }) {
     throw new Error(error.message);
   }
 }
+
+export async function delTransaction({ id, token }) {
+  try {
+    console.log(id);
+    const response = await axios.delete(
+      `${API_URL}/${id}`,
+      {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      }
+    );
+    return response.data.transactions;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
