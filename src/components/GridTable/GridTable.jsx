@@ -3,7 +3,7 @@ import { GridTableStyle, TableBlok, TableBox } from './GridTable.styled'
 import { ExpContext } from '../../context/expContext'
 
 export function GridTable() {
-  const { removeRow, rows } = useContext(ExpContext);
+  const { rows, setTransactions} = useContext(ExpContext);
   const categoryMap = {
   food: "Еда",
   transport: "Транспорт",
@@ -12,6 +12,7 @@ export function GridTable() {
   education: "Образование",
   others: "Другое",
 };
+const token = localStorage.getItem('token');
 
   return (
     <>
@@ -37,7 +38,7 @@ export function GridTable() {
                 <img
                   key={index}
                   src="/del_icon.svg"
-                  onClick={() => removeRow(index)}
+                  onClick={() => setTransactions({id: row._id, token})}
                 ></img>
               </GridTableStyle>
             ))
