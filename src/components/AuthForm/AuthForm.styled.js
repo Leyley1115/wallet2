@@ -112,7 +112,7 @@ export const ModalFormLogin = styled.form`
 export const ModalInput = styled.input`
   width: 100%;
   border-radius: 6px;
-  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  border: 0.7px solid ${({ $error }) => ($error ? "red" : "#ccc")};
   outline: none;
   padding: 10px 8px;
 

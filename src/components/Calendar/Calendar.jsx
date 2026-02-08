@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   CalendarWrapper,
   Header,
@@ -12,6 +12,7 @@ import {
 } from "./Calendar.styled";
 
 import { GlobalStyle } from "../AuthForm/AuthForm.styled";
+import { getPeriodTransaction } from "../../api/transactions";
 
 const MONTHS_RU = [
   "Январь",
@@ -28,7 +29,7 @@ const MONTHS_RU = [
   "Декабрь",
 ];
 
-export default function Calendar() {
+export default function Calendar({ token, onLoad }) {
   const [start, setStart] = useState(null);
   const [end, setEnd] = useState(null);
 
@@ -69,6 +70,26 @@ export default function Calendar() {
     if (!start || !end) return false;
     return day >= start && day <= end;
   }
+
+  function formatDate(d) {
+    return `${d.getMonth() + 1}-${d.getDate()}-${d.getFullYear()}`;
+  }
+
+  useEffect(() => {
+    async function load() {
+      if (!start || !end) return;
+
+      const data = await getPeriodTransaction({
+        start: formatDate(start),
+        end: formatDate(end),
+        token,
+      });
+
+      onLoad({ start, end, transactions: data });
+    }
+
+    load();
+  }, [start, end]);
 
   return (
     <>

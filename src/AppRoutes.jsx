@@ -9,10 +9,11 @@ import Layout from "./components/Layout/Layout";
 import AnalysisPage from "./pages/AnalysisPage";
 import ExpForm from "./components/ExpForm/ExpForm";
 import GridTable from "./components/GridTable/GridTable";
-import BarChart from "./components/Bar_chart/Bar_chart";
 
 export function AppRoutes(){
-    const [isAuth, setIsAuth] = useState(false);
+    const [isAuth, setIsAuth] = useState(() => { 
+        return Boolean(localStorage.getItem("token")); 
+    });
 
     return (
         <Routes>
@@ -20,7 +21,7 @@ export function AppRoutes(){
             <Route element={<PrivatRoutPage isAuth={isAuth}/>}>
 				<Route path="/" element={<MainPage /> } >
                     <Route index element = {<><GridTable /><ExpForm /></>} />
-                    <Route path="/analysis" element={<><AnalysisPage /><BarChart /></>} />
+                    <Route path="/analysis" element={<><AnalysisPage /></>} />
                 </Route>   
 			</Route>
             <Route path="/login" element={<SignInPage setIsAuth = {setIsAuth}/>} />

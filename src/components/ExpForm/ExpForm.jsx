@@ -11,10 +11,11 @@ import {
 import { ExpContext } from '../../context/expContext'
 import { useContext } from 'react'
 import { useState, useEffect } from 'react'
-import { data } from '../../data'
+import { getTransactions, addTransaction } from '../../api/transactions'
 
 const ExpForm = () => {
-  const { addRow, setRows } = useContext(ExpContext);
+  const token = localStorage.getItem('token')
+  const { addRow, setRows } = useContext(ExpContext)
   const categoryList = [
     {
       key: 'food',
@@ -27,12 +28,12 @@ const ExpForm = () => {
       icon: '/car.svg',
     },
     {
-      key: 'home',
+      key: 'housing',
       title: 'Жильё',
       icon: '/house.svg',
     },
     {
-      key: 'fun',
+      key: 'joy',
       title: 'Развлечения',
       icon: '/gameboy.svg',
     },
@@ -42,7 +43,7 @@ const ExpForm = () => {
       icon: '/teacher.svg',
     },
     {
-      key: 'another',
+      key: 'others',
       title: 'Другое',
       icon: '/message-text.svg',
     },
@@ -50,9 +51,9 @@ const ExpForm = () => {
 
   const [form, setForm] = useState({
     description: '',
+    sum: '',
     category: '',
     date: '',
-    summ: '',
   })
 
   const handleChange = (e) => {
@@ -63,18 +64,34 @@ const ExpForm = () => {
     }))
   }
 
-  const handleSubmit = () => {
-    addRow(form)
-    setForm({
-      description: '',
-      category: '',
-      date: '',
-      summ: '',
-    })
-  }
+const handleSubmit = async () => {
+  const d = new Date(form.date); 
+  const formattedDate = `${d.getMonth() + 1}-${d.getDate()}-${d.getFullYear()}`;
 
-  useEffect(() =>{
-    setRows(data);
+  await addTransaction({
+    token, 
+    form: {
+      ...form,
+      date: formattedDate
+    }
+  })
+
+  const list = await getTransactions({ token })
+  setRows(list)
+
+  setForm({
+    description: '',
+    sum: '',
+    category: '',
+    date: '',
+  })
+}
+
+  useEffect(() => {
+    ;(async () => {
+      const list = await getTransactions({ token })
+      setRows(list)
+    })()
   }, [])
 
   return (
@@ -94,23 +111,25 @@ const ExpForm = () => {
       <ThemeBlock>
         <h3>Категория</h3>
         <CategoryBox>
-         <CategoryBox>
+          <CategoryBox>
             {categoryList.map((c) => (
-                <CategoryLabel key={c.key}>
+              <CategoryLabel key={c.key}>
                 <HiddenRadio
-                    type="radio"
-                    name="category"
-                    value={c.key}
-                    checked={form.category === c.title}
-                    onChange={() => setForm(prev => ({ ...prev, category: c.title }))}
+                  type="radio"
+                  name="category"
+                  value={c.key}
+                  checked={form.category === c.key}
+                  onChange={() =>
+                    setForm((prev) => ({ ...prev, category: c.key }))
+                  }
                 />
                 <CategoryButton>
-                    <img src={c.icon} alt="" />
-                    {c.title}
+                  <img src={c.icon} alt="" />
+                  {c.title}
                 </CategoryButton>
-                </CategoryLabel>
+              </CategoryLabel>
             ))}
-            </CategoryBox>
+          </CategoryBox>
         </CategoryBox>
       </ThemeBlock>
 
@@ -129,9 +148,9 @@ const ExpForm = () => {
         <h3>Сумма</h3>
         <Input
           type="text"
-          name="summ"
+          name="sum"
           min="0"
-          value={form.summ}
+          value={form.sum}
           placeholder="Введите сумму"
           onChange={handleChange}
         />

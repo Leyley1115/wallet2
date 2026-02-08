@@ -1,30 +1,20 @@
 import { ExpContext } from "./expContext"
 import { useState} from "react"
+import { delTransaction } from "../api/transactions";
 
 const ExpProvider = ({ children }) => {
-  // const [error, setError] = useState('');
   const [rows, setRows] = useState([]);
 
-  const removeRow = (index) => {
-    setRows(rows.filter((el, i) => i !== index))
-  }
-
-  const addRow = (newRow) => {
-    setRows(prev => [...prev, newRow])
-  }
-
-  const updateCell = (index, field, value) => {
-    const updated = [...rows]
-    updated[index][field] = value
-    setRows(updated)
+  async function setTransactions({id, token}){
+    const newList = await delTransaction({id, token});
+    console.log(newList);
+    return setRows(newList)
   }
 
   const value={
-    addRow,
-    updateCell,
     rows,
     setRows,
-    removeRow
+    setTransactions
   }
 
   return(
