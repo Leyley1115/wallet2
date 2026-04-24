@@ -34,7 +34,7 @@ export async function addTransaction({ token, form }) {
     )
     return trs.data
   } catch (error) {
-    throw new Error(error.message)
+    throw new Error(`Не удалось добавить расход в список. Ошибка: ${error.message}`)
   }
 }
 
@@ -55,7 +55,6 @@ export async function getPeriodTransaction({ start, end, token }) {
     );
     return pTrs.data;
   } catch (error) {
-
     throw new Error(error.message);
   }
 }
