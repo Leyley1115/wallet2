@@ -105,9 +105,8 @@ export default function BarChart({ period }) {
         {items.map((item) => (
           <BarBlock key={item.category}>
             <Amount>{item.sum.toLocaleString('ru-RU')} ₽</Amount>
-
             <Bar
-              $height={(item.sum / max) * 100}
+              $height={item.sum === 0 ? 5 : (item.sum / max) * 100}
               $color={
                 item.category === 'Еда'
                   ? '#D9B6FF'
@@ -122,7 +121,6 @@ export default function BarChart({ period }) {
                           : '#FFB9B8'
               }
             />
-
             <Label>{item.category}</Label>
           </BarBlock>
         ))}

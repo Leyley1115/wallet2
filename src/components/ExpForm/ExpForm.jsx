@@ -115,7 +115,9 @@ const ExpForm = () => {
     <TableBlok>
       <ThemeBlock>
         <h2>Новый расход</h2>
-        <h3>Описание</h3>
+        <h3>Описание
+          {errors.description && <span style={{ color: 'red' }}> *</span>}
+        </h3>
 
         <Input
           type="text"
@@ -156,7 +158,9 @@ const ExpForm = () => {
       </ThemeBlock>
 
       <ThemeBlock>
-        <h3>Дата</h3>
+        <h3>Дата
+          {errors.date && <span style={{ color: 'red' }}> *</span>}
+        </h3>
         <Input
           type="date"
           name="date"
@@ -168,7 +172,9 @@ const ExpForm = () => {
       </ThemeBlock>
 
       <ThemeBlock>
-        <h3>Сумма</h3>
+        <h3>Сумма
+          {errors.sum && <span style={{ color: 'red' }}> *</span>}
+        </h3>
         <Input
           type="text"
           name="sum"
