@@ -20,18 +20,18 @@ export const Input = styled.input`
   width: 100%;
   height: 39px;
   border-radius: 6px;
-  border: 1px solid ${({ error }) => (error ? '#F25050' : '#7334EA')};
-  background-color: ${({ error }) => (error ? '#FFEBEB' : '#F1EBFD')};
+  border: 1px solid ${({ $error }) => ($error ? '#F25050' : '#7334EA')};
+  background-color: ${({ $error }) => ($error ? '#FFEBEB' : '#F1EBFD')};
 
   &:focus {
-    border-color: ${({ error }) => (error ? 'red' : '#666')};
+    border-color: ${({ $error }) => ($error ? 'red' : '#666')};
   }
 `
 
 export const Btn = styled.button`
   width: 100%;
   height: 39px;
-  background-color: ${({ isDisabled }) => (isDisabled ? '#999' : '#7334EA')};
+  background-color: ${({ $isDisabled }) => ($isDisabled ? '#999' : '#7334EA')};
   border-radius: 6px;
   color: #ffffff;
   border: none;

@@ -125,7 +125,7 @@ const ExpForm = () => {
           value={form.description}
           placeholder="Введите описание"
           onChange={handleChange}
-          error={errors.description}
+          $error={errors.description}
         />
       </ThemeBlock>
 
@@ -146,7 +146,7 @@ const ExpForm = () => {
                 onChange={() =>
                   handleChange({ target: { name: 'category', value: c.key } })
                 }
-                error={errors.category}
+                $error={errors.category}
               />
               <CategoryButton>
                 <img src={c.icon} alt="" />
@@ -167,7 +167,7 @@ const ExpForm = () => {
           value={form.date}
           placeholder="Введите дату"
           onChange={handleChange}
-          error={errors.date}
+          $error={errors.date}
         />
       </ThemeBlock>
 
@@ -182,14 +182,14 @@ const ExpForm = () => {
           value={form.sum}
           placeholder="Введите сумму"
           onChange={handleChange}
-          error={errors.sum}
+          $error={errors.sum}
         />
       </ThemeBlock>
 
       <Btn
         onClick={handleSubmit}
-        disabled={hasErrors}
-        isDisabled={hasErrors}
+        // disabled={hasErrors}
+        $isDisabled={hasErrors}
       >
         Добавить новый расход
       </Btn>
