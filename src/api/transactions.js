@@ -53,6 +53,8 @@ export async function getPeriodTransaction({ start, end, token }) {
         },
       }
     );
+    console.log(start);
+    console.log(end);
     return pTrs.data;
   } catch (error) {
     throw new Error(error.message);

@@ -34,7 +34,7 @@ export const Total = styled.div`
 export const BarsWrapper = styled.div`
     display: flex;
     justify-content: space-between;
-    height: 100%;
+    height: 400px;
     padding-bottom: 10px;
     gap: 32px;
 `;

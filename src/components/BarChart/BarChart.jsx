@@ -62,14 +62,19 @@ export default function BarChart({ period }) {
 
   const { transactions } = period
 
-  const categoryMap = {
-    food: 'Еда',
-    transport: 'Транспорт',
-    home: 'Жилье',
-    fun: 'Развлечения',
-    education: 'Образование',
-    other: 'Другое',
-  }
+const categoryMap = {
+  food: 'Еда',
+  transport: 'Транспорт',
+  home: 'Жилье',
+  housing: 'Жилье',
+  fun: 'Развлечения',
+  joy: 'Развлечения',
+  education: 'Образование',
+  other: 'Другое',
+  others: 'Другое',
+}
+
+
 
   const grouped = transactions.reduce((acc, t) => {
     const name = categoryMap[t.category] || t.category
@@ -106,7 +111,7 @@ export default function BarChart({ period }) {
           <BarBlock key={item.category}>
             <Amount>{item.sum.toLocaleString('ru-RU')} ₽</Amount>
             <Bar
-              $height={item.sum === 0 ? 5 : (item.sum / max) * 100}
+              $height={(item.sum / max) * 100+5}
               $color={
                 item.category === 'Еда'
                   ? '#D9B6FF'

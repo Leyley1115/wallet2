@@ -79,7 +79,7 @@ const ExpForm = () => {
     if (Object.values(newErrors).some(v => v)) return
 
     const d = new Date(form.date)
-    const formattedDate = `${d.getMonth() + 1}-${d.getDate()}-${d.getFullYear()}`
+    const formattedDate = form.date;
 
     await addTransaction({
       token,
@@ -127,6 +127,8 @@ const ExpForm = () => {
           onChange={handleChange}
           $error={errors.description}
         />
+        {errors.description && <div style={{ color: 'red',  fontSize: '12px', marginTop: '-16px', marginBottom:'-16px'}}>Описание слишком короткое</div>}
+
       </ThemeBlock>
 
       <ThemeBlock>
@@ -134,7 +136,6 @@ const ExpForm = () => {
           Категория
           {errors.category && <span style={{ color: 'red' }}> *</span>}
         </h3>
-
         <CategoryBox>
           {categoryList.map((c) => (
             <CategoryLabel key={c.key}>

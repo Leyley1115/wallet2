@@ -72,8 +72,13 @@ export default function Calendar({ token, onLoad }) {
   }
 
   function formatDate(d) {
-    return `${d.getMonth() + 1}-${d.getDate()}-${d.getFullYear()}`;
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
   }
+
+
 
   useEffect(() => {
     async function load() {

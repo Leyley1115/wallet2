@@ -14,16 +14,20 @@ function Header({isAuth, setIsAuth}){
 			address: '/analysis' 
 		} ];
 
-	const [page, setPage] = useState(pageList[0].title);
-	
+	const [page, setPage] = useState(() => {
+		return localStorage.getItem("activePage") || pageList[0].title;
+	});
+
 	function openState(){
 		setIsAuth(false);
 	}
 
 	const go = (title, address) => { 
 		setPage(title); 
+		localStorage.setItem("activePage", title);
 		navigate(address); 
 	};
+
 
 	
     return (
